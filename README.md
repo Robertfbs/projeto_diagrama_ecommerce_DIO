@@ -58,7 +58,7 @@ Com base nas novas solicitações da orientadora para refino do modelo inicial c
 *   **Solução Proposta (Tabela Dedicada `Entrega`):**
     *   Em e-commerces reais (especialmente marketplaces), um único pedido pode conter itens de diferentes vendedores, sendo enviado em pacotes distintos. Por isso, a melhor modelagem é criar uma tabela dedicada `Entrega`.
     *   A tabela `Entrega` possui chaves estrangeiras vinculadas a `Pedido` e armazena:
-        *   `status_entrega` (ex: 'Em Processamento', 'Coletado', 'Enviado', 'Entregue').
+        *   `status_entrega` (ex: 'Coletado', 'Enviado', 'Entregue').
         *   `codigo_rastreio` (para rastreamento com a transportadora/Correios).
         *   Datas logísticas: `data_envio`, `data_entrega_prevista` e `data_entrega_real`.
 
