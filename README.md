@@ -58,19 +58,8 @@ Com base nas novas solicitações da orientadora para refino do modelo inicial c
 *   **Solução Proposta (Tabela Dedicada `Entrega`):**
     *   Em e-commerces reais (especialmente marketplaces), um único pedido pode conter itens de diferentes vendedores, sendo enviado em pacotes distintos. Por isso, a melhor modelagem é criar uma tabela dedicada `Entrega`.
     *   A tabela `Entrega` possui chaves estrangeiras vinculadas a `Pedido` e armazena:
-        *   `status_entrega` (ex: 'Em Processamento', 'Postado', 'Em Trânsito', 'Entregue').
+        *   `status_entrega` (ex: 'Em Processamento', 'Coletado', 'Enviado', 'Entregue').
         *   `codigo_rastreio` (para rastreamento com a transportadora/Correios).
         *   Datas logísticas: `data_envio`, `data_entrega_prevista` e `data_entrega_real`.
-
----
-
-### 📈 Ajustes Técnicos de Qualidade (Pontos de Refinamento Extra)
-
-Durante a revisão do modelo inicial, as seguintes melhorias foram sugeridas para elevar o padrão técnico do diagrama:
-1.  **Tipo de Dados para Preços (`Produto.Valor`):** O campo `Valor` na tabela `Produto` estava originalmente definido como `VARCHAR(45)`. Para permitir cálculos matemáticos (somas de pedidos, médias de preços) e ordenação correta, o tipo foi recomendado para alteração para `DECIMAL(10,2)`.
-2.  **Datas padronizadas:** Alteração dos campos de datas (nascimento do cliente e data de cadastro) de `VARCHAR` para os tipos nativos do MySQL (`DATE` e `DATETIME` ou `TIMESTAMP`), permitindo o uso de funções temporais do banco.
-3.  **Tipo de Frete:** Conversão do campo `Frete` da tabela `Pedido` de `FLOAT` para `DECIMAL(10,2)` para consistência de precisão monetária.
-
----
 
 Este projeto demonstra a capacidade de traduzir requisitos de negócio (regras de e-commerce e restrições de integridade) em um modelo físico e conceitual robusto de banco de dados relacional.
