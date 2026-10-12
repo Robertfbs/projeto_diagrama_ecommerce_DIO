@@ -10,6 +10,9 @@ O projeto consiste no diagrama de Entidade-Relacionamento elaborado no **MySQL W
 
 *   [MER_e_commerce_DIO.mwb](MER_e_commerce_DIO.mwb): Arquivo fonte do modelo conceitual/físico para abertura e edição no MySQL Workbench.
 *   [modelagem_ecommerce_DIO.png](modelagem_ecommerce_DIO.png): Imagem exportada do diagrama EER para visualização rápida.
+*   [01_esquema_relacional.sql](01_esquema_relacional.sql): Script DDL completo para criação do banco de dados, chaves primárias/estrangeiras e restrições de integridade.
+*   [02_insercao_dados.sql](02_insercao_dados.sql): Script DML com dados sintéticos ricos para testes de negócio.
+*   [03_consultas_analiticas.sql](03_consultas_analiticas.sql): Consultas SQL analíticas avançadas cobrindo JOINs, GROUP BY/HAVING, CTEs e Funções de Janela (Window Functions).
 
 ---
 
@@ -63,3 +66,31 @@ Com base nas novas solicitações da orientadora para refino do modelo inicial c
         *   Datas logísticas: `data_envio`, `data_entrega_prevista` e `data_entrega_real`.
 
 Este projeto demonstra a capacidade de traduzir requisitos de negócio (regras de e-commerce e restrições de integridade) em um modelo físico e conceitual robusto de banco de dados relacional.
+
+---
+
+## 📊 Consultas SQL Analíticas Implementadas
+
+O arquivo `03_consultas_analiticas.sql` responde às seguintes perguntas estratégicas de negócio:
+
+1. **Prevenção de Churn (`LEFT JOIN` + `IS NULL`):** Identifica clientes cadastrados que nunca concluíram uma compra.
+2. **Conciliação Fornecedor x Produto (`FULL OUTER JOIN`):** Mapeamento global de catálogo, evidenciando produtos sem fornecedor vinculado ou fornecedores sem produtos cadastrados.
+3. **Performance por Categoria (`GROUP BY` + `HAVING`):** Volume de pedidos, unidades vendidas e faturamento total por categoria, filtrando grupos de alta receita.
+4. **Segmentação de Clientes (`CTEs` + `CASE WHEN`):** Classificação modular de clientes em faixas de valor (VIP/Corporativo, Recorrente, Eventual e Inativo).
+5. **Ranking de Vendas por Categoria (`DENSE_RANK()` + `PARTITION BY`):** Ranqueamento dos produtos líderes de venda dentro de sua respectiva categoria.
+6. **Ciclo de Recompra (`LEAD()` + `PARTITION BY`):** Cálculo de intervalo em dias entre compras sucessivas de cada cliente.
+
+---
+
+## 🚀 Como Executar no PostgreSQL (pgAdmin 4 ou psql)
+
+1. Crie um novo banco de dados no PostgreSQL chamado `ecommerce_dio`:
+   ```sql
+   CREATE DATABASE ecommerce_dio;
+   ```
+2. Conecte-se ao banco `ecommerce_dio`.
+3. Abra e execute os scripts na ordem:
+   - `01_esquema_relacional.sql` (Criação de tabelas e constraints)
+   - `02_insercao_dados.sql` (Carga dos dados de teste)
+   - `03_consultas_analiticas.sql` (Execução das análises de negócio)
+
