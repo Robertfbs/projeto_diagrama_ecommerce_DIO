@@ -96,19 +96,33 @@ ORDER BY total_gasto DESC;
 
 -- --------------------------------------------------------------------
 -- 5. WINDOW FUNCTIONS: Ranking dos Produtos Mais Vendidos por Categoria
--- Conceitos: DENSE_RANK(), PARTITION BY, ORDER BY
+-- Conceitos: CTE modular, DENSE_RANK(), PARTITION BY, ORDER BY
 -- --------------------------------------------------------------------
-SELECT 
-    p.Categoria,
-    p.Descricao AS produto,
-    SUM(rp.Quantidade) AS total_unidades_vendidas,
+WITH vendas_por_produto AS (
+    SELECT
+        p.Categoria,
+        p.Descricao AS produto,
+        SUM(rp.Quantidade) AS unidades_vendidas
+    FROM Produto p
+    INNER JOIN Relacao_de_Produto_pedido rp ON p.idProduto = rp.Produto_idProduto
+    GROUP BY
+        p.Categoria,
+        p.idProduto,
+        p.Descricao
+)
+SELECT
+    Categoria,
+    produto,
+    unidades_vendidas,
     DENSE_RANK() OVER (
-        PARTITION BY p.Categoria 
-        ORDER BY SUM(rp.Quantidade) DESC
-    ) AS ranking_na_categoria
-FROM Produto p
-INNER JOIN Relacao_de_Produto_pedido rp ON p.idProduto = rp.Produto_idProduto
-GROUP BY p.Categoria, p.Descricao;
+        PARTITION BY Categoria
+        ORDER BY unidades_vendidas DESC
+    ) AS ranking_categoria
+FROM vendas_por_produto
+ORDER BY
+    Categoria,
+    ranking_categoria,
+    produto;
 
 
 -- --------------------------------------------------------------------
