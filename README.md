@@ -80,17 +80,4 @@ O arquivo `03_consultas_analiticas.sql` responde às seguintes perguntas estrat�
 5. **Ranking de Vendas por Categoria (`DENSE_RANK()` + `PARTITION BY`):** Ranqueamento dos produtos líderes de venda dentro de sua respectiva categoria.
 6. **Ciclo de Recompra (`LEAD()` + `PARTITION BY`):** Cálculo de intervalo em dias entre compras sucessivas de cada cliente.
 
----
-
-## 🚀 Como Executar no PostgreSQL (pgAdmin 4 ou psql)
-
-1. Crie um novo banco de dados no PostgreSQL chamado `ecommerce_dio`:
-   ```sql
-   CREATE DATABASE ecommerce_dio;
-   ```
-2. Conecte-se ao banco `ecommerce_dio`.
-3. Abra e execute os scripts na ordem:
-   - `01_esquema_relacional.sql` (Criação de tabelas e constraints)
-   - `02_insercao_dados.sql` (Carga dos dados de teste)
-   - `03_consultas_analiticas.sql` (Execução das análises de negócio)
 
